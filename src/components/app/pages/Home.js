@@ -11,7 +11,7 @@ const Home = () => {
         {(context) => (
           <div>
             <p>{context.authUser.user.displayName}</p>
-            <img src={context.authUser.user.photoURL} />
+            <img src={context.authUser.user.photoURL} alt="user" />
           </div>
         )}
       </AuthContext.Consumer>

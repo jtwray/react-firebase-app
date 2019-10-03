@@ -8,10 +8,12 @@ const SignIn = ({ history }) => {
   const uiConfig = {
     callbacks: {
       signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+        /*
         // call api to set httponly cookie
         FirebaseAuth.auth().currentUser.getIdToken().then(function (token){
           console.log(token);
         });
+        */
         // redirect to homepage
         history.push('/');
         return false;
