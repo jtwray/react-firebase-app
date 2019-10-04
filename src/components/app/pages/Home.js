@@ -10,9 +10,7 @@ const Home = () => {
       </div>
       <div className="row">
         <div className="col mb-4">
-
-                  
-                <div className="list-group shadow">
+          <div className="list-group shadow">
             <a href="/" className="list-group-item list-group-item-action disabled">
                 <div className="row">
                     <div className="col-3 text-muted text-left small"><strong>PHOTO</strong></div>
@@ -77,9 +75,7 @@ const Home = () => {
                     <div className="col-2 text-right"><i className="fa fa-angle-right"></i></div>
                 </div>
             </a>
-        </div>
-                  
-
+          </div>
         </div>
       </div>
     </div>
