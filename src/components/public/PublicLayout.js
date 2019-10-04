@@ -5,8 +5,8 @@ import './public.css';
 const PublicLayout = ({ children }) => (                         
     <div className="public-layout text-center">
         <div className="public-main">
-            <img className="mb-4" src="/logo192.png" alt="Default Logo" width="192" height="192" />
-            <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <i className="fa fa-5x fa-fire text-warning"></i>
+            <h2 className="h3 mb-3 font-weight-normal">Please sign in</h2>
             {children}
         </div>
     </div>  

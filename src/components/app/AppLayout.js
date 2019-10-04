@@ -20,19 +20,40 @@ const AppLayout = ({ children }) => {
         <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
           <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
             <div className="sidebar-brand-icon rotate-n-15">
-              <i className="fas fa-laugh-wink"></i>
+              <i className="fas fa-fire text-warning"></i>
             </div>
-            <div className="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+            <div className="sidebar-brand-text mx-3">Fireact</div>
           </a>
 
           <hr className="sidebar-divider my-0" />
           {/* menu */}
           <li className="nav-item active">
             <Link className="nav-link" to="/dashboard">
-              <i className="fas fa-fw fa-tachometer-alt"></i>
-              <span>Dashboard</span>
+              <i className="fas fa-fw fa-atom"></i>
+              <span>Projects</span>
             </Link>
           </li>
+          <hr className="sidebar-divider" />
+          <div className="sidebar-heading">
+            Account
+          </div>
+          <li className="nav-item">
+             <a className="nav-link collapsed" href="/" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+              <i className="fas fa-fw fa-cog"></i>
+              <span>User</span>
+            </a>
+            <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+              <div className="bg-white py-2 collapse-inner rounded">
+                <h6 className="collapse-header">Custom Components:</h6>
+                <Link className="collapse-item" to="/profile">Profile</Link>
+                <Link className="collapse-item" to="/settings">Setting</Link>
+              </div>
+            </div>
+          </li>
+          <hr className="sidebar-divider d-none d-md-block" />
+          <div className="text-center d-none d-md-inline">
+            <button className="rounded-circle border-0" id="sidebarToggle"></button>
+          </div>
         </ul>
 
         <div id="content-wrapper" className="d-flex flex-column">
@@ -46,23 +67,13 @@ const AppLayout = ({ children }) => {
               </button>
               <ul className="navbar-nav ml-auto">
                 <div className="topbar-divider d-none d-sm-block"></div>
-
                 <UserMenu />
               </ul>
               
             </nav>
 
-            <div className="container-fluid">
-              <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 className="h3 mb-0 text-gray-800">Cards</h1>
-              </div>
-              <div className="row">
-                <div className="col">
-                  <p>This is the App Layout</p>
-                  {children}
-                </div>
-              </div>
-            </div>
+            {children}
+            
           </div>
         </div>
     </div>  
