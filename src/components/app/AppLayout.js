@@ -1,20 +1,17 @@
 import React, { useEffect, useContext } from 'react';  
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, Link } from "react-router-dom";
 import { AuthContext } from "../auth/FirebaseAuthContext";
 import Loader from "../public/pages/Loader";
-import './theme.css';
+import UserMenu from "./UserMenu";
   
 const AppLayout = ({ children }) => {
 
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = "./theme.js";
-    script.async = true;
-    script.onload = () => {
-      
-    };
-
-    document.body.appendChild(script);
+    script.setAttribute("type", "text/javascript");
+    script.src = './theme.js';
+    document.head.appendChild(script);
+    return () => script.parentNode.removeChild(script);
   }, []);
 
   return (                         
@@ -29,15 +26,30 @@ const AppLayout = ({ children }) => {
           </a>
 
           <hr className="sidebar-divider my-0" />
+          {/* menu */}
+          <li className="nav-item active">
+            <Link className="nav-link" to="/dashboard">
+              <i className="fas fa-fw fa-tachometer-alt"></i>
+              <span>Dashboard</span>
+            </Link>
+          </li>
         </ul>
 
         <div id="content-wrapper" className="d-flex flex-column">
           <div id="content">
-
+            {/* Topbar */}
             <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+              {/* Sidebar Toggle (Topbar) */}
               <button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3">
                 <i className="fa fa-bars"></i>
               </button>
+              <ul className="navbar-nav ml-auto">
+                <div className="topbar-divider d-none d-sm-block"></div>
+
+                <UserMenu />
+              </ul>
+              
             </nav>
 
             <div className="container-fluid">

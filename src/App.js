@@ -5,9 +5,6 @@ import { AuthProvider } from "./components/auth/FirebaseAuthContext";
 
 import PublicLayoutRouter from './components/public/PublicLayout';
 import AppLayoutRouter from './components/app/AppLayout';
-import $ from 'jquery';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/js/bootstrap.bundle';
 
 import Home from './components/app/pages/Home';
 import About from './components/app/pages/About';
