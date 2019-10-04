@@ -1,8 +1,10 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import { AuthContext } from "../../auth/FirebaseAuthContext";
+import FirebaseAuth from '../../auth/FirebaseAuth';
 
 const Home = () => {
   const {authUser} = useContext(AuthContext);
+  const [passwordResetActive, setPasswordResetActive] = useState(false);
   return (
     <div className="container-fluid">
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
@@ -60,13 +62,21 @@ const Home = () => {
                     <div className="col-2 text-right"><i className="fa fa-angle-right"></i></div>
                 </div>
             </a>
-            <a href="/" id="your-profile-reset-password" className="list-group-item list-group-item-action">
+            <a href="/" id="your-profile-reset-password" className={"list-group-item list-group-item-action "+(passwordResetActive?'disabled':'')} onClick={(e) => {
+              e.preventDefault();
+              setPasswordResetActive(true);
+              FirebaseAuth.auth().sendPasswordResetEmail(authUser.user.email).then(function(){
+                setPasswordResetActive(false);
+              }).catch(function(error){
+                setPasswordResetActive(false);
+              });
+            }}>
                 <div className="row">
                     <div className="col-3 text-muted text-left small"><strong>PASSWORD</strong></div>
                     <div className="col-7 text-left small">
                     ••••••••
                     </div>
-                    <div className="col-2 text-right"><i className="fa fa-angle-right"></i></div>
+                    <div className="col-2 text-right"><i className={"fa "+(passwordResetActive?'fa-spinner fa-spin':'fa-angle-right')}></i></div>
                 </div>
             </a>
             <a href="/user/delete-account" className="list-group-item list-group-item-action" v-link="true">
