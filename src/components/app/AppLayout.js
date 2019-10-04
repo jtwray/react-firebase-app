@@ -1,10 +1,23 @@
-import React, { useContext } from 'react';  
+import React, { useEffect, useContext } from 'react';  
 import { Route, Redirect } from "react-router-dom";
 import { AuthContext } from "../auth/FirebaseAuthContext";
 import Loader from "../public/pages/Loader";
 import './theme.css';
   
-const AppLayout = ({ children }) => (                         
+const AppLayout = ({ children }) => {
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "./theme.js";
+    script.async = true;
+    script.onload = () => {
+      
+    };
+
+    document.body.appendChild(script);
+  }, []);
+
+  return (                         
     <div id="wrapper">
 
         <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -41,7 +54,8 @@ const AppLayout = ({ children }) => (
           </div>
         </div>
     </div>  
-);
+  );
+}
   
 const AppLayoutRoute = ({component: Component, ...rest}) => {
   const {authUser} = useContext(AuthContext);
