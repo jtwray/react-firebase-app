@@ -1,12 +1,11 @@
 import React from 'react';  
 import { Route } from 'react-router-dom';
 import './public.css';
-import logo from '../../logo.svg';
   
 const PublicLayout = ({ children }) => (                         
     <div className="public-layout text-center">
         <div className="public-main">
-            <img className="mb-4" src={logo} alt="Default Logo" width="72" height="72" />
+            <img className="mb-4" src="/logo192.png" alt="Default Logo" width="192" height="192" />
             <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
             {children}
         </div>
