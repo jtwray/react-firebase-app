@@ -1,37 +1,25 @@
 import React, {useContext, useState} from "react";
 import { AuthContext } from "../../auth/FirebaseAuthContext";
 import FirebaseAuth from '../../auth/FirebaseAuth';
+import Alert from '../../Alert';
 
 const Home = () => {
+
   const {authUser} = useContext(AuthContext);
   const [passwordResetActive, setPasswordResetActive] = useState(false);
   const [alert, setAlert] = useState({
     'show': false,
-    'style':'primary',
+    'style':'',
     'message':''
-  })
+  });
+  
   return (
     <div className="container-fluid">
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 className="h3 mb-0 text-gray-800">Profile</h1>
       </div>
       <div className="row">      
-        {alert.show?(
-        <div className="col">
-          <div className={"alert shadow alert-"+alert.style} role="alert">
-            {alert.message}
-            <button type="button" className="close" aria-label="Close" onClick={(e) => {
-              setAlert({
-                'show':false, 
-                'style':'',
-                'message':''
-              });
-            }}>
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        </div>
-        ):(<></>)}
+        <Alert show={alert.show} style={alert.style} message={alert.message} />
       </div>  
       <div className="row">
         <div className="col mb-4">
@@ -91,12 +79,22 @@ const Home = () => {
               FirebaseAuth.auth().sendPasswordResetEmail(authUser.user.email).then(function(){
                 setPasswordResetActive(false);
                 setAlert({
+                  'show':false, 
+                  'style':'',
+                  'message':''
+                });
+                setAlert({
                   'show':true, 
                   'style':'success',
                   'message':'Please check your email for the password reset link.'
                 });
               }).catch(function(error){
                 setPasswordResetActive(false);
+                setAlert({
+                  'show':false, 
+                  'style':'',
+                  'message':''
+                });
                 setAlert({
                   'show':true, 
                   'style':'danger',
