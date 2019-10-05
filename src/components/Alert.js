@@ -1,16 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 
 const Alert = ({show, style, message, hideAlert}) => {
 
-    const [visibility, setVisibility] = useState(show);
-
-    useEffect(() => {
-        setVisibility(show);
-    },[show]);
-
     return (
         <>
-        {(visibility)?(
+        {(show)?(
             <div className="col">
               <div className={"alert shadow alert-"+style} role="alert">
                 {message}
