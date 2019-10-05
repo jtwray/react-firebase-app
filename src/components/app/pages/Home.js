@@ -12,6 +12,13 @@ const Home = () => {
     'style':'',
     'message':''
   });
+
+  const hideAlert = () => {
+    setAlert(prevState => ({
+      ...prevState,
+      show: !prevState.show
+    }))
+  }
   
   return (
     <div className="container-fluid">
@@ -19,7 +26,7 @@ const Home = () => {
         <h1 className="h3 mb-0 text-gray-800">Profile</h1>
       </div>
       <div className="row">      
-        <Alert show={alert.show} style={alert.style} message={alert.message} />
+        <Alert show={alert.show} style={alert.style} message={alert.message} hideAlert={hideAlert} />
       </div>  
       <div className="row">
         <div className="col mb-4">
@@ -79,22 +86,12 @@ const Home = () => {
               FirebaseAuth.auth().sendPasswordResetEmail(authUser.user.email).then(function(){
                 setPasswordResetActive(false);
                 setAlert({
-                  'show':false, 
-                  'style':'',
-                  'message':''
-                });
-                setAlert({
                   'show':true, 
                   'style':'success',
                   'message':'Please check your email for the password reset link.'
                 });
               }).catch(function(error){
                 setPasswordResetActive(false);
-                setAlert({
-                  'show':false, 
-                  'style':'',
-                  'message':''
-                });
                 setAlert({
                   'show':true, 
                   'style':'danger',
