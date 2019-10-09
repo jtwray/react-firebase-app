@@ -10,15 +10,9 @@ const Home = () => {
   const [alert, setAlert] = useState({
     'show': false,
     'style':'',
-    'message':''
+    'message':'',
+    'count': 0
   });
-
-  const hideAlert = () => {
-    setAlert(prevState => ({
-      ...prevState,
-      show: !prevState.show
-    }))
-  }
   
   return (
     <div className="container-fluid">
@@ -26,7 +20,7 @@ const Home = () => {
         <h1 className="h3 mb-0 text-gray-800">Profile</h1>
       </div>
       <div className="row">      
-        <Alert show={alert.show} style={alert.style} message={alert.message} hideAlert={hideAlert} />
+        <Alert show={alert.show} style={alert.style} message={alert.message} count={alert.count} />
       </div>  
       <div className="row">
         <div className="col mb-4">
@@ -88,14 +82,16 @@ const Home = () => {
                 setAlert({
                   'show':true, 
                   'style':'success',
-                  'message':'Please check your email for the password reset link.'
+                  'message':'Please check your email for the password reset link.',
+                  'count':alert.count+1
                 });
               }).catch(function(error){
                 setPasswordResetActive(false);
                 setAlert({
                   'show':true, 
                   'style':'danger',
-                  'message':error.message
+                  'message':error.message,
+                  'count':alert.count+1
                 });
               });
             }}>
