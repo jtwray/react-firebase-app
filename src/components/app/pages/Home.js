@@ -14,7 +14,7 @@ const Home = () => {
       </div>
       <div className="row">
         <div className="col mb-4">
-            <div class="card shadow mb-4">
+            <div className="card shadow mb-4">
                 <div className="card-body">
                   <Link to="/user/profile">View Your Profile</Link>
                 </div>

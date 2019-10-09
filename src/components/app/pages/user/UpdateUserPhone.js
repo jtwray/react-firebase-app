@@ -1,14 +1,17 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useState, useEffect, createRef} from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../auth/FirebaseAuthContext";
 import FirebaseAuth from '../../../auth/FirebaseAuth';
 import Alert from '../../../Alert';
+import * as firebase from "firebase/app";
 
-const UpdateUserName = () => {
-    
+const UpdateUserPhone = () => {
+
+  let recaptcha = React.createRef();
+
   const {authUser} = useContext(AuthContext);
   const [data, setData] = useState({
-      'displayName': authUser.user.displayName||''
+      'phoneNumber': authUser.user.phoneNumber||''
   });
   const [processing, setProcessing] = useState(false);
   const [alert, setAlert] = useState({
@@ -17,8 +20,25 @@ const UpdateUserName = () => {
     'message':'',
     'count': 0
   });
+
+  useEffect(() => {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(recaptcha, {
+        'size': 'normal',
+        'callback': function (response) {
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+          // ...
+        },
+        'expired-callback': function () {
+          // Response expired. Ask user to solve reCAPTCHA again.
+          // ...
+        }
+     });
+     window.recaptchaVerifier.render().then(function (widgetId) {
+       window.recaptchaWidgetId = widgetId;
+     });
+  },[]);
   
-  var title = 'Change Your Name';
+  var title = 'Change Your Phone';
 
   document.title = title;
 
@@ -35,28 +55,33 @@ const UpdateUserName = () => {
             <div className="card shadow mb-4">
                 <div className="card-body">
                     <div className="form-group row">
-                        <label htmlFor="display-name" className="col-sm-2 col-form-label">Name</label>
+                        <label htmlFor="phone-number" className="col-sm-2 col-form-label">Phone</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control" id="display-name" aria-describedby="display-name-help" placeholder="Your full name" value={data.displayName} onChange={(e) => {
+                            <input type="text" className="form-control" id="phone-number" aria-describedby="phone-number-help" placeholder="Your phone number" value={data.phoneNumber} onChange={(e) => {
                                 setData({
-                                    'displayName': e.target.value
+                                    'phoneNumber': e.target.value,
                                 })
                             }} />
-                            <small id="display-name-help" className="form-text text-muted">Please put in your full name.</small>
+                            <small id="phone-number-help" className="form-text text-muted">Please put in your phone number.</small>
                         </div>
+                    </div>
+                    <div className="form-group row" ref={(ref)=>recaptcha=ref}>
+
                     </div>
                     <div className="text-center">
                         <button type="submit" className="btn btn-primary" disabled={processing?true:false} onClick={(e) => {
                             e.preventDefault();
                             setProcessing(true);
-                            FirebaseAuth.auth().currentUser.updateProfile({
-                                displayName: document.getElementById('display-name').value
-                            }).then(function(){
+                            /*
+                            FirebaseAuth.auth().currentUser.reauthenticateWithPhoneNumber(
+                                document.getElementById('phone-number').value,
+                                firebase.auth.RecaptchaVerifier
+                            ).then(function(){
                                 setProcessing(false);
                                 setAlert({
                                     'show':true, 
                                     'style':'success',
-                                    'message':'Your name has been updated. Please click "Back" button to go back to your profile page.',
+                                    'message':'Your phone number has been updated. Please click "Back" button to go back to your profile page.',
                                     'count':alert.count+1
                                 });
                             }).catch(function(error){
@@ -68,7 +93,9 @@ const UpdateUserName = () => {
                                     'count':alert.count+1
                                 });
                             })
-                        }}>{processing?(
+                            */
+                        }}>
+                        {processing?(
                             <i className="fa fa-spinner fa-spin"></i>
                         ):(
                             <></>
@@ -84,4 +111,4 @@ const UpdateUserName = () => {
   );
 };
 
-export default UpdateUserName;
+export default UpdateUserPhone;

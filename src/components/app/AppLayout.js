@@ -9,7 +9,7 @@ const AppLayout = ({ children }) => {
   useEffect(() => {
     const script = document.createElement("script");
     script.setAttribute("type", "text/javascript");
-    script.src = './theme.js';
+    script.src = '/theme.js';
     document.head.appendChild(script);
     return () => script.parentNode.removeChild(script);
   }, []);

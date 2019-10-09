@@ -6,7 +6,7 @@ const Alert = ({show, style, message, count}) => {
 
   useEffect(() => {
     setVisibility(show);
-  },[count]);
+  },[show,count]);
 
     return (
       <>

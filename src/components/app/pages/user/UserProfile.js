@@ -50,7 +50,7 @@ const UserProfile = () => {
                     <div className="col-2 text-right"><i className="fa fa-angle-right"></i></div>
                 </div>
             </Link>
-            <a href="/user/update-email" className="list-group-item list-group-item-action" v-link="true">
+            <Link to="/user/update-email" className="list-group-item list-group-item-action" v-link="true">
                 <div className="row">
                     <div className="col-3 text-muted text-left small"><strong>EMAIL</strong></div>
                     <div className="col-7 text-left small">
@@ -58,7 +58,7 @@ const UserProfile = () => {
                     </div>
                     <div className="col-2 text-right"><i className="fa fa-angle-right"></i></div>
                 </div>
-            </a>
+            </Link>
             <a href="/" className={"list-group-item list-group-item-action "+(authUser.user.emailVerified?'disabled':'')}>
                 <div className="row">
                     <div className="col-3 text-muted text-left small"><strong>STATUS</strong></div>
@@ -70,7 +70,7 @@ const UserProfile = () => {
                     <div className="col-2 text-right"><i className="fa fa-angle-right"></i></div>
                 </div>
             </a>
-            <a href="/user/update-profile" className="list-group-item list-group-item-action" v-link="true">
+            <Link to="/user/update-phone" className="list-group-item list-group-item-action" v-link="true">
                 <div className="row">
                     <div className="col-3 text-muted text-left small"><strong>PHONE</strong></div>
                     <div className="col-7 text-left small">
@@ -78,7 +78,7 @@ const UserProfile = () => {
                     </div>
                     <div className="col-2 text-right"><i className="fa fa-angle-right"></i></div>
                 </div>
-            </a>
+            </Link>
             <a href="/" id="your-profile-reset-password" className={"list-group-item list-group-item-action "+(passwordResetActive?'disabled':'')} onClick={(e) => {
               e.preventDefault();
               setPasswordResetActive(true);
