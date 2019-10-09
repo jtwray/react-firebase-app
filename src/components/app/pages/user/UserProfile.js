@@ -9,6 +9,7 @@ const UserProfile = () => {
 
   const {authUser} = useContext(AuthContext);
   const [passwordResetActive, setPasswordResetActive] = useState(false);
+  const [sendVerficationActive, setSendVerificationActive] = useState(false);
   const [alert, setAlert] = useState({
     'show': false,
     'style':'',
@@ -60,7 +61,27 @@ const UserProfile = () => {
                     <div className="col-2 text-right"><i className="fa fa-angle-right"></i></div>
                 </div>
             </Link>
-            <a href="/" className={"list-group-item list-group-item-action "+(authUser.user.emailVerified?'disabled':'')}>
+            <a href="/" className={"list-group-item list-group-item-action "+(authUser.user.emailVerified||sendVerficationActive?'disabled':'')} onClick={(e) => {
+              e.preventDefault();
+              setSendVerificationActive(true);
+              authUser.user.sendEmailVerification().then(function(){
+                setSendVerificationActive(false);
+                setAlert({
+                  'show':true, 
+                  'style':'success',
+                  'message':'Please check your email for the verification link.',
+                  'count':alert.count+1
+                });
+              }).catch(function(error){
+                setSendVerificationActive(false);
+                setAlert({
+                  'show':true, 
+                  'style':'danger',
+                  'message':error.message,
+                  'count':alert.count+1
+                });
+              });
+            }}>
                 <div className="row">
                     <div className="col-3 text-muted text-left small"><strong>STATUS</strong></div>
                     <div className="col-7 text-left small">
@@ -68,7 +89,7 @@ const UserProfile = () => {
                         authUser.user.emailVerified?'Email verified':'Unverified email'
                       }
                     </div>
-                    <div className="col-2 text-right"><i className="fa fa-angle-right"></i></div>
+                    <div className="col-2 text-right"><i className={"fa "+(sendVerficationActive?'fa-spinner fa-spin':'fa-angle-right')}></i></div>
                 </div>
             </a>
             <Link to="/user/update-phone" className="list-group-item list-group-item-action" v-link="true">
