@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../auth/FirebaseAuthContext";
 import FirebaseAuth from '../auth/FirebaseAuth';
+import UserAvatar from './UserAvatar';
 
 const UserMenu = () => {
   return (
@@ -11,7 +12,7 @@ const UserMenu = () => {
           <li className="nav-item dropdown no-arrow">
           <a className="nav-link dropdown-toggle" href="/" name="user" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span className="mr-2 d-none d-lg-inline text-gray-600 small">{context.authUser.user.displayName}</span>
-            <img className="img-profile rounded-circle" src={context.authUser.user.photoURL} alt={context.authUser.user.displayName} />
+            <UserAvatar name={context.authUser.user.displayName} photoUrl={context.authUser.user.photoURL} className="img-profile rounded-circle" size="32" />
           </a>
           {/* Dropdown - User Information */}
           <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

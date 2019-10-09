@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../auth/FirebaseAuthContext";
 import FirebaseAuth from '../../../auth/FirebaseAuth';
 import Alert from '../../../Alert';
+import UserAvatar from '../../UserAvatar';
 
 const UserProfile = () => {
 
@@ -37,7 +38,7 @@ const UserProfile = () => {
                         Update via social login or Gravatar
                     </div>
                     <div className="col-3 text-muted text-right">
-                        <img src={authUser.user.photoURL} alt="Avatar" className="img-thumbnail rounded-circle" width="64" height="64" />
+                      <UserAvatar name={authUser.user.displayName} photoUrl={authUser.user.photoURL} className="img-thumbnail rounded-circle" size="64" />
                     </div>
                 </div>
             </a>
