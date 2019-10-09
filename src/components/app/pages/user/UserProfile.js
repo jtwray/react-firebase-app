@@ -130,12 +130,12 @@ const UserProfile = () => {
                     <div className="col-2 text-right"><i className={"fa "+(passwordResetActive?'fa-spinner fa-spin':'fa-angle-right')}></i></div>
                 </div>
             </a>
-            <a href="/user/delete-account" className="list-group-item list-group-item-action" v-link="true">
+            <Link to="/user/delete-account" className="list-group-item list-group-item-action" v-link="true">
                 <div className="row">
                     <div className="col-10 text-danger text-left small"><strong>DELETE ACCOUNT</strong></div>
                     <div className="col-2 text-right"><i className="fa fa-angle-right"></i></div>
                 </div>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

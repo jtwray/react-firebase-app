@@ -4,11 +4,11 @@ import { AuthContext } from "../../../auth/FirebaseAuthContext";
 import FirebaseAuth from '../../../auth/FirebaseAuth';
 import Alert from '../../../Alert';
 
-const UpdateUserEmail = () => {
+const DeleteUser = () => {
     
   const {authUser} = useContext(AuthContext);
   const [data, setData] = useState({
-      'emailAddress': authUser.user.email||''
+      'emailAddress': ''
   });
   const [formVisibility, setFormVisibility] = useState(true);
   const [processing, setProcessing] = useState(false);
@@ -51,24 +51,35 @@ const UpdateUserEmail = () => {
                         <button type="submit" className="btn btn-primary" disabled={processing?true:false} onClick={(e) => {
                             e.preventDefault();
                             setProcessing(true);
-                            FirebaseAuth.auth().currentUser.updateEmail(data.emailAddress).then(function(){
-                                setProcessing(false);
-                                setFormVisibility(false);
-                                setAlert({
-                                    'show':true, 
-                                    'style':'success',
-                                    'message':'Your email address has been updated. Please click "Back" button to go back to your profile page.',
-                                    'count':alert.count+1
-                                });
-                            }).catch(function(error){
+                            if(data.emailAddress === authUser.user.email){
+                                authUser.user.delete().then(function(){
+                                    setProcessing(false);
+                                    setFormVisibility(false);
+                                    setAlert({
+                                        'show':true, 
+                                        'style':'success',
+                                        'message':'Your account has been deleted. Please click "Back" button to go back to your profile page.',
+                                        'count':alert.count+1
+                                    });
+                                }).catch(function(error){
+                                    setProcessing(false);
+                                    setAlert({
+                                        'show':true, 
+                                        'style':'danger',
+                                        'message':error.message,
+                                        'count':alert.count+1
+                                    });
+                                })
+                            }else{
                                 setProcessing(false);
                                 setAlert({
                                     'show':true, 
                                     'style':'danger',
-                                    'message':error.message,
+                                    'message':'Incorrect email address.',
                                     'count':alert.count+1
                                 });
-                            })
+                            }
+
                         }}>{processing?(
                             <i className="fa fa-spinner fa-spin"></i>
                         ):(
@@ -86,4 +97,4 @@ const UpdateUserEmail = () => {
   );
 };
 
-export default UpdateUserEmail;
+export default DeleteUser;
