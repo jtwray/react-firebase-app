@@ -6,9 +6,10 @@ import PublicLayoutRouter from './components/public/PublicLayout';
 import AppLayoutRouter from './components/app/AppLayout';
 
 import Home from './components/app/pages/Home';
-import About from './components/app/pages/About';
 import SignIn from './components/public/pages/SignIn';
 import NotFound from './components/public/pages/NotFound';
+import UpdateUserName from './components/app/pages/user/UpdateUserName';
+import UserProfile from './components/app/pages/user/UserProfile';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
       <Router>
         <Switch>
           <AppLayoutRouter exact path="/" component={Home} />
-          <AppLayoutRouter exact path="/about" component={About} />
+          <AppLayoutRouter exact path="/user/profile" component={UserProfile} />
+          <AppLayoutRouter exact path="/user/update-name" component={UpdateUserName} />
           <PublicLayoutRouter exact path="/signin" component={SignIn} />
           <Route component={NotFound} />
         </Switch>

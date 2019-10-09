@@ -15,7 +15,7 @@ const UserMenu = () => {
           </a>
           {/* Dropdown - User Information */}
           <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-            <Link className="dropdown-item" to="/">
+            <Link className="dropdown-item" to="/user/profile">
               <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
               Profile
             </Link>

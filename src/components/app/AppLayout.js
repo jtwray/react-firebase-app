@@ -18,17 +18,17 @@ const AppLayout = ({ children }) => {
     <div id="wrapper">
 
         <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-          <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+          <Link className="sidebar-brand d-flex align-items-center justify-content-center" to="/">
             <div className="sidebar-brand-icon rotate-n-15">
               <i className="fas fa-fire text-warning"></i>
             </div>
             <div className="sidebar-brand-text mx-3">Fireact</div>
-          </a>
+          </Link>
 
           <hr className="sidebar-divider my-0" />
           {/* menu */}
           <li className="nav-item active">
-            <Link className="nav-link" to="/dashboard">
+            <Link className="nav-link" to="/">
               <i className="fas fa-fw fa-atom"></i>
               <span>Projects</span>
             </Link>
