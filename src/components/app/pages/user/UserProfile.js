@@ -35,7 +35,7 @@ const UserProfile = () => {
                 <div className="row">
                     <div className="col-3 text-muted text-left small"><strong>PHOTO</strong></div>
                     <div className="col-6 text-muted text-left small">
-                        Update via social login or Gravatar
+                        Update via social login
                     </div>
                     <div className="col-3 text-muted text-right">
                       <UserAvatar name={authUser.user.displayName} photoUrl={authUser.user.photoURL} className="img-thumbnail rounded-circle" size="64" />
