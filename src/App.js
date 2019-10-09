@@ -11,6 +11,7 @@ import NotFound from './components/public/pages/NotFound';
 import UserProfile from './components/app/pages/user/UserProfile';
 import UpdateUserName from './components/app/pages/user/UpdateUserName';
 import UpdateUserPhone from './components/app/pages/user/UpdateUserPhone';
+import UpdateUserEmail from './components/app/pages/user/UpdateUserEmail';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <AppLayoutRouter exact path="/" component={Home} />
           <AppLayoutRouter exact path="/user/profile" component={UserProfile} />
           <AppLayoutRouter exact path="/user/update-name" component={UpdateUserName} />
+          <AppLayoutRouter exact path="/user/update-email" component={UpdateUserEmail} />
           <AppLayoutRouter exact path="/user/update-phone" component={UpdateUserPhone} />
           <PublicLayoutRouter exact path="/signin" component={SignIn} />
           <Route component={NotFound} />
