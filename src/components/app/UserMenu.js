@@ -19,14 +19,6 @@ const UserMenu = () => {
               <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
               Profile
             </Link>
-            <Link className="dropdown-item" to="/settings">
-              <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-              Settings
-            </Link>
-            <Link className="dropdown-item" to="/log">
-              <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-              Activity Log
-            </Link>
             <div className="dropdown-divider"></div>
             <a className="dropdown-item" href="/" data-toggle="modal" data-target="#logoutModal" onClick={(e) => {
                 e.preventDefault();
@@ -37,7 +29,7 @@ const UserMenu = () => {
                 })
             }}>
               <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-              Logout
+              Sign Out
             </a>
           </div>
           </li>
