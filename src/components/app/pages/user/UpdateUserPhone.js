@@ -14,7 +14,9 @@ const UpdateUserPhone = () => {
   });
   const [verificationCode, setVerificationCode] = useState('');
   const [recaptchaVerified, setRecaptchaVerified] = useState(false);
+  const [verificationId, setVerificationId] = useState('');
   const [verifyStep, setVerifyStep] = useState(false);
+  const [formVisibility, setFormVisibility] = useState(true);
   const [processing, setProcessing] = useState(false);
   const [alert, setAlert] = useState({
     'show': false,
@@ -50,7 +52,8 @@ const UpdateUserPhone = () => {
       </div>
       <div className="row">      
         <Alert show={alert.show} style={alert.style} message={alert.message} count={alert.count} />
-      </div>  
+      </div> 
+      {formVisibility?(
       <div className="row">
         <div className="col mb-4">
             <div className="card shadow mb-4">
@@ -90,32 +93,47 @@ const UpdateUserPhone = () => {
                         <button type="submit" className="btn btn-primary" disabled={(processing||(!recaptchaVerified))?true:false} onClick={(e) => {
                             e.preventDefault();
                             setProcessing(true);
-                            setRecaptchaVerified(false);
-                            var provider = new firebase.auth.PhoneAuthProvider();
-                            provider.verifyPhoneNumber(
-                                document.getElementById('phone-number').value,
-                                window.recaptchaVerifier
-                            ).then(function(){
-                                setProcessing(false);
-                                /*
-                                setAlert({
-                                    'show':true, 
-                                    'style':'success',
-                                    'message':'Your phone number has been updated. Please click "Back" button to go back to your profile page.',
-                                    'count':alert.count+1
+                            if(verifyStep){
+                                var cred = firebase.auth.PhoneAuthProvider.credential(verificationId, verificationCode);
+                                authUser.user.updatePhoneNumber(cred).then(function(){
+                                    setProcessing(false);
+                                    setFormVisibility(false);
+                                    setAlert({
+                                        'show':true, 
+                                        'style':'success',
+                                        'message':'Your phone number has been updated. Please click "Back" button to go back to your profile page.',
+                                        'count':alert.count+1
+                                    });
+                                }).catch(function(error){
+                                    setProcessing(false);
+                                    setAlert({
+                                        'show':true, 
+                                        'style':'danger',
+                                        'message':error.message,
+                                        'count':alert.count+1
+                                    });
                                 });
-                                */
-                                setVerifyStep(true);
-                            }).catch(function(error){
-                                setProcessing(false);
-                                setAlert({
-                                    'show':true, 
-                                    'style':'danger',
-                                    'message':error.message,
-                                    'count':alert.count+1
-                                });
-                            })
-                            
+                            }else{
+                                setRecaptchaVerified(false);
+                                var provider = new firebase.auth.PhoneAuthProvider();
+                                provider.verifyPhoneNumber(
+                                    data.phoneNumber,
+                                    window.recaptchaVerifier
+                                ).then(function(vid){
+                                    setProcessing(false);
+                                    setRecaptchaVerified(true);
+                                    setVerificationId(vid);
+                                    setVerifyStep(true);
+                                }).catch(function(error){
+                                    setProcessing(false);
+                                    setAlert({
+                                        'show':true, 
+                                        'style':'danger',
+                                        'message':error.message,
+                                        'count':alert.count+1
+                                    });
+                                })    
+                            }
                         }}>
                         {processing?(
                             <i className="fa fa-spinner fa-spin"></i>
@@ -129,6 +147,7 @@ const UpdateUserPhone = () => {
             </div>
         </div>
       </div>
+      ):(<Link className="btn btn-secondary" to="/user/profile">Back</Link>)}
     </div>
   );
 };

@@ -10,6 +10,7 @@ const UpdateUserName = () => {
   const [data, setData] = useState({
       'displayName': authUser.user.displayName||''
   });
+  const [formVisibility, setFormVisibility] = useState(true);
   const [processing, setProcessing] = useState(false);
   const [alert, setAlert] = useState({
     'show': false,
@@ -29,7 +30,8 @@ const UpdateUserName = () => {
       </div>
       <div className="row">      
         <Alert show={alert.show} style={alert.style} message={alert.message} count={alert.count} />
-      </div>  
+      </div>
+      {formVisibility?(
       <div className="row">
         <div className="col mb-4">
             <div className="card shadow mb-4">
@@ -53,6 +55,7 @@ const UpdateUserName = () => {
                                 displayName: document.getElementById('display-name').value
                             }).then(function(){
                                 setProcessing(false);
+                                setFormVisibility(false);
                                 setAlert({
                                     'show':true, 
                                     'style':'success',
@@ -80,6 +83,7 @@ const UpdateUserName = () => {
             </div>
         </div>
       </div>
+      ):(<Link className="btn btn-secondary" to="/user/profile">Back</Link>)}
     </div>
   );
 };
