@@ -36,6 +36,7 @@ const UpdateUserPhone = () => {
      window.recaptchaVerifier.render().then(function (widgetId) {
        window.recaptchaWidgetId = widgetId;
      });
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
   
   var title = 'Change Your Phone';
