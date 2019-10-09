@@ -1,7 +1,6 @@
 import React, {useContext, useState} from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../auth/FirebaseAuthContext";
-import FirebaseAuth from '../../../auth/FirebaseAuth';
 import Alert from '../../../Alert';
 
 const UpdateUserName = () => {
@@ -51,8 +50,8 @@ const UpdateUserName = () => {
                         <button type="submit" className="btn btn-primary" disabled={processing?true:false} onClick={(e) => {
                             e.preventDefault();
                             setProcessing(true);
-                            FirebaseAuth.auth().currentUser.updateProfile({
-                                displayName: document.getElementById('display-name').value
+                            authUser.user.updateProfile({
+                                displayName: data.displayName
                             }).then(function(){
                                 setProcessing(false);
                                 setFormVisibility(false);

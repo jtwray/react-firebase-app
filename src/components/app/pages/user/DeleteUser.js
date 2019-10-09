@@ -1,7 +1,6 @@
 import React, {useContext, useState} from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../auth/FirebaseAuthContext";
-import FirebaseAuth from '../../../auth/FirebaseAuth';
 import Alert from '../../../Alert';
 
 const DeleteUser = () => {
@@ -19,7 +18,7 @@ const DeleteUser = () => {
     'count': 0
   });
   
-  var title = 'Change Your Email';
+  var title = 'Delete Your Account';
 
   document.title = title;
 
@@ -44,11 +43,11 @@ const DeleteUser = () => {
                                     'emailAddress': e.target.value
                                 })
                             }} />
-                            <small id="email-address-help" className="form-text text-muted">Please put in your new email address.</small>
+                            <small id="email-address-help" className="form-text text-muted">Please put in your registered email address to verify.</small>
                         </div>
                     </div>
                     <div className="text-center">
-                        <button type="submit" className="btn btn-primary" disabled={processing?true:false} onClick={(e) => {
+                        <button type="submit" className="btn btn-danger" disabled={processing?true:false} onClick={(e) => {
                             e.preventDefault();
                             setProcessing(true);
                             if(data.emailAddress === authUser.user.email){
@@ -84,7 +83,7 @@ const DeleteUser = () => {
                             <i className="fa fa-spinner fa-spin"></i>
                         ):(
                             <></>
-                        )} Submit</button>
+                        )} DELETE</button>
                         &nbsp;
                         <Link className="btn btn-secondary" to="/user/profile">Back</Link>
                     </div>

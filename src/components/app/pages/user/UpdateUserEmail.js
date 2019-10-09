@@ -1,7 +1,6 @@
 import React, {useContext, useState} from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../auth/FirebaseAuthContext";
-import FirebaseAuth from '../../../auth/FirebaseAuth';
 import Alert from '../../../Alert';
 
 const UpdateUserEmail = () => {
@@ -51,7 +50,7 @@ const UpdateUserEmail = () => {
                         <button type="submit" className="btn btn-primary" disabled={processing?true:false} onClick={(e) => {
                             e.preventDefault();
                             setProcessing(true);
-                            FirebaseAuth.auth().currentUser.updateEmail(data.emailAddress).then(function(){
+                            authUser.user.updateEmail(data.emailAddress).then(function(){
                                 setProcessing(false);
                                 setFormVisibility(false);
                                 setAlert({
