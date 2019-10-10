@@ -52,11 +52,7 @@ const UpdateUserEmail = () => {
                             e.preventDefault();
                             setProcessing(true);
                             authUser.user.updateEmail(data.emailAddress).then(function(){
-                                addLog({
-                                      'action':'updated email address',
-                                      'timnestamp':(new Date()),
-                                      'user-agent':navigator.userAgent
-                                    });
+                                addLog('updated email address');
                                 setProcessing(false);
                                 setFormVisibility(false);
                                 setAlert({

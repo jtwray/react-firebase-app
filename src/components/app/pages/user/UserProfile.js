@@ -65,11 +65,7 @@ const UserProfile = () => {
               e.preventDefault();
               setSendVerificationActive(true);
               authUser.user.sendEmailVerification().then(function(){
-                addLog({
-                    'action':'requested verification email',
-                    'timnestamp':(new Date()),
-                    'user-agent':navigator.userAgent
-                  });
+                addLog('requested verification email');
                 setSendVerificationActive(false);
                 setAlert({
                   'show':true, 
@@ -110,11 +106,7 @@ const UserProfile = () => {
               e.preventDefault();
               setPasswordResetActive(true);
               FirebaseAuth.auth().sendPasswordResetEmail(authUser.user.email).then(function(){
-                addLog({
-                    'action':'requested password reset email',
-                    'timnestamp':(new Date()),
-                    'user-agent':navigator.userAgent
-                  });
+                addLog('requested password reset email');
                 setPasswordResetActive(false);
                 setAlert({
                   'show':true, 

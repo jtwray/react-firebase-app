@@ -13,6 +13,7 @@ import UpdateUserName from './components/app/pages/user/UpdateUserName';
 import UpdateUserPhone from './components/app/pages/user/UpdateUserPhone';
 import UpdateUserEmail from './components/app/pages/user/UpdateUserEmail';
 import DeleteUser from './components/app/pages/user/DeleteUser';
+import UserActivities from './components/app/pages/user/UserActivities';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <AppLayoutRouter exact path="/user/update-email" component={UpdateUserEmail} />
           <AppLayoutRouter exact path="/user/update-phone" component={UpdateUserPhone} />
           <AppLayoutRouter exact path="/user/delete-account" component={DeleteUser} />
+          <AppLayoutRouter exact path="/user/log" component={UserActivities} />
           <PublicLayoutRouter exact path="/signin" component={SignIn} />
           <Route component={NotFound} />
         </Switch>

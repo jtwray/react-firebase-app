@@ -11,17 +11,12 @@ const SignIn = () => {
     callbacks: {
       signInSuccessWithAuthResult: function(authResult, redirectUrl) {
         setSignInSuccess(true);
-        addLog(
-        {
-          'action':'signed in',
-          'timnestamp':(new Date()),
-          'user-agent':navigator.userAgent
-        },
-        authResult.user.uid,
-        function(){
-          document.location.href = '/';
-        },function(error){
-          document.location.href = '/';
+        addLog('signed in',
+          authResult.user.uid,
+          function(){
+            document.location.href = '/';
+          },function(error){
+            document.location.href = '/';
         });
         return false;
       }
