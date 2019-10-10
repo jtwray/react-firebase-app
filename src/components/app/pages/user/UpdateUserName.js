@@ -54,8 +54,7 @@ const UpdateUserName = () => {
                             authUser.user.updateProfile({
                                 displayName: data.displayName
                             }).then(function(){
-                                addLog(authUser.user.uid,
-                                    {
+                                addLog({
                                       'action':'updated user name',
                                       'timnestamp':(new Date()),
                                       'user-agent':navigator.userAgent

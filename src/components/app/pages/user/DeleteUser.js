@@ -2,6 +2,7 @@ import React, {useContext, useState} from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../auth/FirebaseAuthContext";
 import Alert from '../../../Alert';
+import { addLog } from '../../../auth/FirebaseAuth';
 
 const DeleteUser = () => {
     
@@ -51,6 +52,11 @@ const DeleteUser = () => {
                             e.preventDefault();
                             setProcessing(true);
                             if(data.emailAddress === authUser.user.email){
+                                addLog({
+                                      'action':'deleting account',
+                                      'timnestamp':(new Date()),
+                                      'user-agent':navigator.userAgent
+                                    });
                                 authUser.user.delete().then(function(){
                                     setProcessing(false);
                                     setFormVisibility(false);

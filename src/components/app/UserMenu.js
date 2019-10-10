@@ -5,6 +5,7 @@ import { FirebaseAuth } from '../auth/FirebaseAuth';
 import UserAvatar from './UserAvatar';
 
 const UserMenu = () => {
+
   return (
     <>
       <AuthContext.Consumer>
@@ -14,11 +15,14 @@ const UserMenu = () => {
             <span className="mr-2 d-none d-lg-inline text-gray-600 small">{context.authUser.user.displayName}</span>
             <UserAvatar name={context.authUser.user.displayName} photoUrl={context.authUser.user.photoURL} className="img-profile rounded-circle" size="32" />
           </a>
-          {/* Dropdown - User Information */}
           <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
             <Link className="dropdown-item" to="/user/profile">
               <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
               Profile
+            </Link>
+            <Link className="dropdown-item" to="/user/log">
+              <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+              Activity Log
             </Link>
             <div className="dropdown-divider"></div>
             <a className="dropdown-item" href="/" data-toggle="modal" data-target="#logoutModal" onClick={(e) => {

@@ -97,8 +97,7 @@ const UpdateUserPhone = () => {
                             if(verifyStep){
                                 var cred = firebase.auth.PhoneAuthProvider.credential(verificationId, verificationCode);
                                 authUser.user.updatePhoneNumber(cred).then(function(){
-                                    addLog(authUser.user.uid,
-                                        {
+                                    addLog({
                                           'action':'updated phone number',
                                           'timnestamp':(new Date()),
                                           'user-agent':navigator.userAgent

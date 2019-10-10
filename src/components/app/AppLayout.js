@@ -46,7 +46,7 @@ const AppLayout = ({ children }) => {
               <div className="bg-white py-2 collapse-inner rounded">
                 <h6 className="collapse-header">User Features:</h6>
                 <Link className="collapse-item" to="/user/profile">Profile</Link>
-                <Link className="collapse-item" to="/user/logs">Activity Logs</Link>
+                <Link className="collapse-item" to="/user/log">Activity Log</Link>
               </div>
             </div>
           </li>

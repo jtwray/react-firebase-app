@@ -6,8 +6,13 @@ import {config} from './firebase-config'
 const FirebaseAuth = firebase.initializeApp(config);
 const Firestore = FirebaseAuth.firestore();
 
-const addLog = (uid, data, successCallback, failureCallback) => {
+const addLog = (data, uid, successCallback, failureCallback) => {
         var collection = Firestore.collection('users');
+        if(typeof(uid) === 'string' && uid.length > 0){
+
+        }else{
+            uid = FirebaseAuth.auth().currentUser.uid;
+        }
         collection.doc(uid)
             .collection('activities').doc(''+(new Date().getTime())).set(data)
             .then(function(){

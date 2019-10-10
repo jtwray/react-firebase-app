@@ -11,28 +11,18 @@ const SignIn = () => {
     callbacks: {
       signInSuccessWithAuthResult: function(authResult, redirectUrl) {
         setSignInSuccess(true);
-        addLog(authResult.user.uid,
+        addLog(
         {
           'action':'signed in',
           'timnestamp':(new Date()),
           'user-agent':navigator.userAgent
-        },function(){
+        },
+        authResult.user.uid,
+        function(){
           document.location.href = '/';
         },function(error){
           document.location.href = '/';
         });
-        /*
-        var collection = Firestore.collection('users');
-        collection.doc(authResult.user.uid).collection('activities').doc(''+(new Date().getTime())).set({
-          'action':'sign-in',
-          'timnestamp':(new Date()),
-          'user-agent':navigator.userAgent
-        }).then(function(){
-          document.location.href = '/';
-        }).catch(function(error){
-          document.location.href = '/';
-        })
-        */
         return false;
       }
     },
