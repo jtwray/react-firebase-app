@@ -2,6 +2,7 @@ import React, {useContext, useState} from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../auth/FirebaseAuthContext";
 import Alert from '../../../Alert';
+import { addLog } from '../../../auth/FirebaseAuth';
 
 const UpdateUserEmail = () => {
     
@@ -51,6 +52,12 @@ const UpdateUserEmail = () => {
                             e.preventDefault();
                             setProcessing(true);
                             authUser.user.updateEmail(data.emailAddress).then(function(){
+                                addLog(authUser.user.uid,
+                                    {
+                                      'action':'updated email address',
+                                      'timnestamp':(new Date()),
+                                      'user-agent':navigator.userAgent
+                                    });
                                 setProcessing(false);
                                 setFormVisibility(false);
                                 setAlert({

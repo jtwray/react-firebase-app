@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../auth/FirebaseAuthContext";
-import FirebaseAuth from '../auth/FirebaseAuth';
+import { FirebaseAuth } from '../auth/FirebaseAuth';
 import UserAvatar from './UserAvatar';
 
 const UserMenu = () => {

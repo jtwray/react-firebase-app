@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../auth/FirebaseAuthContext";
 import Alert from '../../../Alert';
 import * as firebase from "firebase/app";
+import { addLog } from '../../../auth/FirebaseAuth';
 
 const UpdateUserPhone = () => {
 
@@ -96,6 +97,12 @@ const UpdateUserPhone = () => {
                             if(verifyStep){
                                 var cred = firebase.auth.PhoneAuthProvider.credential(verificationId, verificationCode);
                                 authUser.user.updatePhoneNumber(cred).then(function(){
+                                    addLog(authUser.user.uid,
+                                        {
+                                          'action':'updated phone number',
+                                          'timnestamp':(new Date()),
+                                          'user-agent':navigator.userAgent
+                                        });
                                     setProcessing(false);
                                     setFormVisibility(false);
                                     setAlert({

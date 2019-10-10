@@ -1,7 +1,7 @@
 import React, {useContext, useState} from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../auth/FirebaseAuthContext";
-import FirebaseAuth from '../../../auth/FirebaseAuth';
+import { FirebaseAuth, addLog } from '../../../auth/FirebaseAuth';
 import Alert from '../../../Alert';
 import UserAvatar from '../../UserAvatar';
 
@@ -65,6 +65,12 @@ const UserProfile = () => {
               e.preventDefault();
               setSendVerificationActive(true);
               authUser.user.sendEmailVerification().then(function(){
+                addLog(authUser.user.uid,
+                  {
+                    'action':'requested verification email',
+                    'timnestamp':(new Date()),
+                    'user-agent':navigator.userAgent
+                  });
                 setSendVerificationActive(false);
                 setAlert({
                   'show':true, 
@@ -105,6 +111,12 @@ const UserProfile = () => {
               e.preventDefault();
               setPasswordResetActive(true);
               FirebaseAuth.auth().sendPasswordResetEmail(authUser.user.email).then(function(){
+                addLog(authUser.user.uid,
+                  {
+                    'action':'requested password reset email',
+                    'timnestamp':(new Date()),
+                    'user-agent':navigator.userAgent
+                  });
                 setPasswordResetActive(false);
                 setAlert({
                   'show':true, 

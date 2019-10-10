@@ -2,6 +2,7 @@ import React, {useContext, useState} from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../auth/FirebaseAuthContext";
 import Alert from '../../../Alert';
+import { addLog } from '../../../auth/FirebaseAuth';
 
 const UpdateUserName = () => {
     
@@ -53,6 +54,12 @@ const UpdateUserName = () => {
                             authUser.user.updateProfile({
                                 displayName: data.displayName
                             }).then(function(){
+                                addLog(authUser.user.uid,
+                                    {
+                                      'action':'updated user name',
+                                      'timnestamp':(new Date()),
+                                      'user-agent':navigator.userAgent
+                                    });
                                 setProcessing(false);
                                 setFormVisibility(false);
                                 setAlert({
