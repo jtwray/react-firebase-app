@@ -44,9 +44,9 @@ const AppLayout = ({ children }) => {
             </a>
             <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
               <div className="bg-white py-2 collapse-inner rounded">
-                <h6 className="collapse-header">Custom Components:</h6>
-                <Link className="collapse-item" to="/profile">Profile</Link>
-                <Link className="collapse-item" to="/settings">Setting</Link>
+                <h6 className="collapse-header">User Features:</h6>
+                <Link className="collapse-item" to="/user/profile">Profile</Link>
+                <Link className="collapse-item" to="/user/logs">Activity Logs</Link>
               </div>
             </div>
           </li>

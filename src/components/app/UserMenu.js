@@ -24,7 +24,7 @@ const UserMenu = () => {
             <a className="dropdown-item" href="/" data-toggle="modal" data-target="#logoutModal" onClick={(e) => {
                 e.preventDefault();
                 FirebaseAuth.auth().signOut().then(function(){
-                    window.location.href = '/';
+                    
                 }, function(error){
 
                 })

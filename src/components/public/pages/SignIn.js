@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { FirebaseAuth, addLog } from '../../auth/FirebaseAuth';
 import * as firebase from "firebase/app";
 
 const SignIn = () => {
+  const [signInSuccess, setSignInSuccess] = useState(false);
+
   // Configure FirebaseUI.
   const uiConfig = {
     callbacks: {
       signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+        setSignInSuccess(true);
         addLog(authResult.user.uid,
         {
           'action':'signed in',
@@ -43,9 +46,19 @@ const SignIn = () => {
   };
 
   return (
-    <div className="SignIn">
-      <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={FirebaseAuth.auth()} />
-    </div>
+    <>
+    {signInSuccess?(
+      <i className="fa fa-cog fa-5x fa-spin" />
+    ):(
+      <div>
+        <i className="fa fa-5x fa-fire text-warning"></i>
+        <h2 className="h3 mb-3 font-weight-normal">Please sign in</h2>
+        <div id="sign-in" className="SignIn">
+            <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={FirebaseAuth.auth()} />
+        </div>
+      </div>
+    )}  
+    </>
   );
 };
 
