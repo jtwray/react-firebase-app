@@ -11,9 +11,15 @@ const UserActivities = () => {
   const {authUser} = useContext(AuthContext);
   const [data, setData] = useState([]);
   const [qs, setQs] = useState(null);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     var records = [];
+    var userData = Firestore.collection('users').doc(authUser.user.uid).get().then(function(doc){
+      if(doc.exists){
+        setTotal(doc.data().activities);
+      }
+    });
     var logs = Firestore.collection('users').doc(authUser.user.uid).collection('activities');
     var first = logs.orderBy('timestamp', 'desc').limit(4);
     var firstRecords = first.get().then(function(documentSnapshots){
@@ -36,10 +42,44 @@ const UserActivities = () => {
       <div className="row">
         <div className="col mb-4">
             {data.length>0?(
-                <>
-                    <span>records</span>
-                {data.map(r => <li key={r.timestamp}>{r.action}</li>)}
-                </>
+                <div className="card shadow mb-4">
+                  <div className="card-header py-3">
+                    <h6 className="m-0 font-weight-bold text-primary">Activity Log Records</h6>
+                  </div>
+                  <div className="card-body">
+                    <div>
+                      <div>
+                        <div className="row" style={{margin:'0',padding:'0'}}>
+                          <div className="col-sm-12 table-responsive">
+                            <table className="table table-bordered table-vcenter">
+                              <thead>
+                                <tr role="row">
+                                  <th>Time</th>
+                                  <th>Activity</th>
+                                </tr>
+                              </thead>
+                              <tbody className="small">
+                              {data.map(r => 
+                                <tr key={r.timestamp} role="row">
+                                  <td style={{whiteSpace:'nowrap'}}>{''+(new Date(parseInt(r.timestamp)))}</td>
+                                  <td style={{whiteSpace:'nowrap'}}>{r.action}</td>
+                                </tr>
+                              )}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <div className="row" style={{margin:'0',padding:'0'}}>
+                          <div className="col-sm-12 col-md-5">
+                            Total: {total}
+                          </div>
+                          <div className="col-sm-12 col-md-7"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                
+                </div>
             ):(
                 <></>
             )}          
