@@ -16,7 +16,11 @@ const Home = () => {
         <div className="col mb-4">
             <div className="card shadow mb-4">
                 <div className="card-body">
-                  <Link to="/user/profile">View Your Profile</Link>
+                  <p>Replace this page with your application homepage.</p>
+                  <ul>
+                    <li><Link to="/user/profile">Manage Your Profile</Link></li>
+                    <li><Link to="/user/log">View Your Activities</Link></li>
+                  </ul>
                 </div>
             </div>
         </div>
