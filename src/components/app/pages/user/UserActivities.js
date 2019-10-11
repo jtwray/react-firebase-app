@@ -77,10 +77,10 @@ const UserActivities = () => {
                           </div>
                         </div>
                         <div className="row" style={{marginLeft:'0',marginRight:'0',marginTop:'10px',paddingLeft:'0',paddingRight:'0'}}>
-                          <div className="col-sm-12 col-md-5">
+                          <div className="col-5">
                             {showCount} of {total}
                           </div>
-                          <div className="col-sm-12 col-md-7 text-right">
+                          <div className="col-7 text-right">
                             <button className={"btn btn-primary "+((total===showCount)?'disabled':'')} onClick={(e) => {
                               e.preventDefault();
                               if(total > showCount){
