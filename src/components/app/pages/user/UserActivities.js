@@ -7,32 +7,39 @@ const UserActivities = () => {
   var title = 'Your Activities';
 
   document.title = title;
+  
+  const pageSize = 20;
 
+  
   const {authUser} = useContext(AuthContext);
   const [data, setData] = useState([]);
   const [qs, setQs] = useState(null);
   const [total, setTotal] = useState(0);
+  const [showCount, setShowCount] = useState(0);
 
   useEffect(() => {
-    var records = [];
-    var userData = Firestore.collection('users').doc(authUser.user.uid).get().then(function(doc){
-      if(doc.exists){
-        setTotal(doc.data().activities);
-      }
-    });
-    var logs = Firestore.collection('users').doc(authUser.user.uid).collection('activities');
-    var first = logs.orderBy('timestamp', 'desc').limit(4);
-    var firstRecords = first.get().then(function(documentSnapshots){
-        documentSnapshots.forEach(function(doc) {
-            records.push({
-                'timestamp': doc.id,
-                'action': doc.data().action
-            })
-        });
-        setQs(documentSnapshots);
-        setData(records);
-    })
-  }, []);
+    if(showCount === 0){
+      var records = [];
+      var userDocRef = Firestore.collection('users').doc(authUser.user.uid);
+      userDocRef.get().then(function(userDoc){
+        if(userDoc.exists){
+          setTotal(userDoc.data().activityCount);
+        }
+      });
+      userDocRef.collection('activities').orderBy('timestamp', 'desc').limit(pageSize)
+      .get().then(function(documentSnapshots){
+          documentSnapshots.forEach(function(doc) {
+              records.push({
+                  'timestamp': doc.id,
+                  'action': doc.data().action
+              })
+          });
+          setShowCount(documentSnapshots.size+showCount);
+          setQs(documentSnapshots);
+          setData(records);
+      });
+    }
+  }, [authUser.user.uid, showCount]);
   
   return (
     <div className="container-fluid">
@@ -41,7 +48,7 @@ const UserActivities = () => {
       </div>
       <div className="row">
         <div className="col mb-4">
-            {data.length>0?(
+            {total>0?(
                 <div className="card shadow mb-4">
                   <div className="card-header py-3">
                     <h6 className="m-0 font-weight-bold text-primary">Activity Log Records</h6>
@@ -69,11 +76,33 @@ const UserActivities = () => {
                             </table>
                           </div>
                         </div>
-                        <div className="row" style={{margin:'0',padding:'0'}}>
+                        <div className="row" style={{marginLeft:'0',marginRight:'0',marginTop:'10px',paddingLeft:'0',paddingRight:'0'}}>
                           <div className="col-sm-12 col-md-5">
-                            Total: {total}
+                            {showCount} of {total}
                           </div>
-                          <div className="col-sm-12 col-md-7"></div>
+                          <div className="col-sm-12 col-md-7 text-right">
+                            <button className={"btn btn-primary "+((total===showCount)?'disabled':'')} onClick={(e) => {
+                              e.preventDefault();
+                              if(total > showCount){
+                                var records = [];
+                                var userDocRef = Firestore.collection('users').doc(authUser.user.uid);
+                                var lastDoc = qs.docs[qs.docs.length-1];
+                                userDocRef.collection('activities').orderBy('timestamp', 'desc').startAfter(lastDoc).limit(pageSize).get().then(function(documentSnapshots){
+                                  documentSnapshots.forEach(function(doc) {
+                                    records.push({
+                                        'timestamp': doc.id,
+                                        'action': doc.data().action
+                                    })
+                                  });
+                                  var existingRecords = data;
+                                  existingRecords.push.apply(existingRecords, records);
+                                  setData(existingRecords);
+                                  setQs(documentSnapshots);
+                                  setShowCount(documentSnapshots.size+showCount);
+                                });
+                              }
+                            }}>More activities...</button>
+                          </div>
                         </div>
                       </div>
                     </div>

@@ -14,48 +14,31 @@ const addLog = (action, uid, successCallback, failureCallback) => {
             'time': dt,
             'user-agent': navigator.userAgent
         }
-        var add = (userDoc, data, success, failure) => {
-            console.log(userDoc);
-            userDoc.collection('activities').doc(''+dt.getTime()).set(data)
-                .then(function(){
-                    userDoc.update({
-                        'activities': firebase.firestore.FieldValue.increment(1)
-                    })
-                    if(typeof(success) !== 'undefined'){
-                        success();
-                    }
-                }).catch(function(error){
-                    if(typeof(failure) !== 'undefined'){
-                        failure(error);
-                    }
-                });
-        }
-        var collection = Firestore.collection('users');
+
         if(typeof(uid) === 'string' && uid.length > 0){
 
         }else{
             uid = FirebaseAuth.auth().currentUser.uid;
         }
-        collection.doc(uid).get().then(function(doc){
-            if(doc.exists){
-                add(collection.doc(uid), data, successCallback, failureCallback);
-            }else{
-                collection.doc(uid).set({
-                    'activities': 0
-                }).then(function(){
-                    add(collection.doc(uid), data, successCallback, failureCallback)
-                }).catch(function(error){
-                    if(typeof(failureCallback) !== 'undefined'){
-                        failureCallback(error);
-                    }
-                });
-            }
-        }).catch(function(error){
-            console.log(error);
+
+       var userDocRef = Firestore.collection('users').doc(uid);
+       userDocRef.set({'activityCount':firebase.firestore.FieldValue.increment(1)},{merge: true}).then(function(){
+            userDocRef.collection('activities').doc(''+dt.getTime()).set(data)
+            .then(function(){
+                 if(typeof(successCallback) !== 'undefined'){
+                     successCallback();
+                 }
+            }).catch(function(error){
+                userDocRef.set({'activityCount':firebase.firestore.FieldValue.increment(-1)},{merge: true});
+                 if(typeof(failureCallback) !== 'undefined'){
+                     failureCallback(error);
+                 }
+            });
+       }).catch(function(error){
             if(typeof(failureCallback) !== 'undefined'){
                 failureCallback(error);
             }
-        });
+       });
 }
 
 export {FirebaseAuth, Firestore, addLog};
