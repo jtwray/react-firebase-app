@@ -1,12 +1,10 @@
-import React, { useEffect, useContext, useState } from 'react';  
+import React, { useEffect, useContext } from 'react';  
 import { Route, Redirect, NavLink } from "react-router-dom";
 import { AuthContext } from "../auth/FirebaseAuthContext";
 import Loader from "../public/pages/Loader";
 import UserMenu from "./UserMenu";
   
 const AppLayout = ({ children }) => {
-
-  const [userMenuActive, setUserMenuActive] = useState(false);
 
   useEffect(() => {
     const script = document.createElement("script");

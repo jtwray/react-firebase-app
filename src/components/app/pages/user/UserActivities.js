@@ -110,7 +110,15 @@ const UserActivities = () => {
                 
                 </div>
             ):(
-                <></>
+                <>
+                {
+                  (qs===null)?(
+                    <div><i className="fa fa-spinner fa-spin"></i> Loading...</div>
+                  ):(
+                    <div>No activity is found</div>
+                  )
+                }
+                </>
             )}          
         </div>
       </div>
