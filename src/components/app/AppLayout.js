@@ -1,10 +1,12 @@
-import React, { useEffect, useContext } from 'react';  
-import { Route, Redirect, Link } from "react-router-dom";
+import React, { useEffect, useContext, useState } from 'react';  
+import { Route, Redirect, NavLink } from "react-router-dom";
 import { AuthContext } from "../auth/FirebaseAuthContext";
 import Loader from "../public/pages/Loader";
 import UserMenu from "./UserMenu";
   
 const AppLayout = ({ children }) => {
+
+  const [userMenuActive, setUserMenuActive] = useState(false);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -18,26 +20,26 @@ const AppLayout = ({ children }) => {
     <div id="wrapper">
 
         <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
-          <Link className="sidebar-brand d-flex align-items-center justify-content-center" to="/">
+          <NavLink className="sidebar-brand d-flex align-items-center justify-content-center" to="/">
             <div className="sidebar-brand-icon rotate-n-15">
               <i className="fas fa-fire text-warning"></i>
             </div>
             <div className="sidebar-brand-text mx-3">Fireact</div>
-          </Link>
+          </NavLink>
 
           <hr className="sidebar-divider my-0" />
           {/* menu */}
-          <li className="nav-item active">
-            <Link className="nav-link" to="/">
+          <li className={"nav-item"+((window.location.pathname==='/')?" active":"")}>
+            <NavLink className="nav-link" exact to="/" activeClassName="nav-link active">
               <i className="fas fa-fw fa-atom"></i>
               <span>Projects</span>
-            </Link>
+            </NavLink>
           </li>
           <hr className="sidebar-divider" />
           <div className="sidebar-heading">
             Account
           </div>
-          <li className="nav-item">
+          <li className={"nav-item"+((window.location.pathname.startsWith('/user/'))?" active":"")}>
              <a className="nav-link collapsed" href="/" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
               <i className="fas fa-fw fa-cog"></i>
               <span>User</span>
@@ -45,8 +47,8 @@ const AppLayout = ({ children }) => {
             <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
               <div className="bg-white py-2 collapse-inner rounded">
                 <h6 className="collapse-header">User Features:</h6>
-                <Link className="collapse-item" to="/user/profile">Profile</Link>
-                <Link className="collapse-item" to="/user/log">Activity Log</Link>
+                <NavLink className="collapse-item" strict activeClassName="collapse-item active" to="/user/profile">Profile</NavLink>
+                <NavLink className="collapse-item" strict activeClassName="collapse-item active" to="/user/log">Activity Log</NavLink>
               </div>
             </div>
           </li>

@@ -22,10 +22,10 @@ function App() {
         <Switch>
           <AppLayoutRouter exact path="/" component={Home} />
           <AppLayoutRouter exact path="/user/profile" component={UserProfile} />
-          <AppLayoutRouter exact path="/user/update-name" component={UpdateUserName} />
-          <AppLayoutRouter exact path="/user/update-email" component={UpdateUserEmail} />
-          <AppLayoutRouter exact path="/user/update-phone" component={UpdateUserPhone} />
-          <AppLayoutRouter exact path="/user/delete-account" component={DeleteUser} />
+          <AppLayoutRouter exact path="/user/profile/update-name" component={UpdateUserName} />
+          <AppLayoutRouter exact path="/user/profile/update-email" component={UpdateUserEmail} />
+          <AppLayoutRouter exact path="/user/profile/update-phone" component={UpdateUserPhone} />
+          <AppLayoutRouter exact path="/user/profile/delete-account" component={DeleteUser} />
           <AppLayoutRouter exact path="/user/log" component={UserActivities} />
           <PublicLayoutRouter exact path="/signin" component={SignIn} />
           <Route component={NotFound} />

@@ -43,7 +43,7 @@ const UserProfile = () => {
                     </div>
                 </div>
             </a>
-            <Link to="/user/update-name" className="list-group-item list-group-item-action" v-link="true">
+            <Link to="/user/profile/update-name" className="list-group-item list-group-item-action" v-link="true">
                 <div className="row">
                     <div className="col-3 text-muted text-left small"><strong>NAME</strong></div>
                     <div className="col-7 text-left small">
@@ -52,7 +52,7 @@ const UserProfile = () => {
                     <div className="col-2 text-right"><i className="fa fa-angle-right"></i></div>
                 </div>
             </Link>
-            <Link to="/user/update-email" className="list-group-item list-group-item-action" v-link="true">
+            <Link to="/user/profile/update-email" className="list-group-item list-group-item-action" v-link="true">
                 <div className="row">
                     <div className="col-3 text-muted text-left small"><strong>EMAIL</strong></div>
                     <div className="col-7 text-left small">
@@ -93,7 +93,7 @@ const UserProfile = () => {
                     <div className="col-2 text-right"><i className={"fa "+(sendVerficationActive?'fa-spinner fa-spin':'fa-angle-right')}></i></div>
                 </div>
             </a>
-            <Link to="/user/update-phone" className="list-group-item list-group-item-action" v-link="true">
+            <Link to="/user/profile/update-phone" className="list-group-item list-group-item-action" v-link="true">
                 <div className="row">
                     <div className="col-3 text-muted text-left small"><strong>PHONE</strong></div>
                     <div className="col-7 text-left small">
@@ -132,7 +132,7 @@ const UserProfile = () => {
                     <div className="col-2 text-right"><i className={"fa "+(passwordResetActive?'fa-spinner fa-spin':'fa-angle-right')}></i></div>
                 </div>
             </a>
-            <Link to="/user/delete-account" className="list-group-item list-group-item-action" v-link="true">
+            <Link to="/user/profile/delete-account" className="list-group-item list-group-item-action" v-link="true">
                 <div className="row">
                     <div className="col-10 text-danger text-left small"><strong>DELETE ACCOUNT</strong></div>
                     <div className="col-2 text-right"><i className="fa fa-angle-right"></i></div>
