@@ -28,7 +28,7 @@ const AppLayout = ({ children }) => {
           <hr className="sidebar-divider my-0" />
           {/* menu */}
           <li className={"nav-item"+((window.location.pathname==='/')?" active":"")}>
-            <NavLink className="nav-link" exact to="/" activeClassName="nav-link active">
+            <NavLink className="nav-link" exact to="/" activeClassName="active">
               <i className="fas fa-fw fa-atom"></i>
               <span>Projects</span>
             </NavLink>
@@ -38,15 +38,15 @@ const AppLayout = ({ children }) => {
             Account
           </div>
           <li className={"nav-item"+((window.location.pathname.startsWith('/user/'))?" active":"")}>
-             <a className="nav-link collapsed" href="/" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+             <a className="nav-link" href="/" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
               <i className="fas fa-fw fa-cog"></i>
               <span>User</span>
             </a>
             <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
               <div className="bg-white py-2 collapse-inner rounded">
                 <h6 className="collapse-header">User Features:</h6>
-                <NavLink className="collapse-item" strict activeClassName="collapse-item active" to="/user/profile">Profile</NavLink>
-                <NavLink className="collapse-item" strict activeClassName="collapse-item active" to="/user/log">Activity Log</NavLink>
+                <NavLink className="collapse-item" strict activeClassName="active" to="/user/profile">Profile</NavLink>
+                <NavLink className="collapse-item" strict activeClassName="active" to="/user/log">Activity Log</NavLink>
               </div>
             </div>
           </li>
